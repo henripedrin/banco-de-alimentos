@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
 import schemas
-from services.auth import AuthService
+from services.auth_service import AuthService
 
 router = APIRouter(prefix="/auth", tags=["Login"])
 
-@router.post("/", response_model=list)
+@router.post("/")
 def login(username, password):
     authService = AuthService
     return authService.login(AuthService(), username, password)

@@ -1,4 +1,4 @@
-from repository.user import UserRepository
+from repository.user_repository import UserRepository
 
 class AuthService:
     def login(self, username, password):
@@ -9,5 +9,4 @@ class AuthService:
             return None
         credentials = userRepository.get_credentials(UserRepository(), username)
         if username == credentials[0] and password == credentials[1]:
-            return True
-
+            return {"mensagem": "Login efetuado com sucesso!", "usuario": username}

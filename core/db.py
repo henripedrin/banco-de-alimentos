@@ -1,5 +1,7 @@
 import psycopg2
 from psycopg2 import pool
+from psycopg2.extras import RealDictCursor
+
 from core import settings
 import logging
 
@@ -37,7 +39,7 @@ class DataBase:
     def execute(self, sql, params=None, many=True):
         conn = self.get_conn()
         try:
-            with conn.cursor() as cursor:
+            with conn.cursor(cursor_factory=RealDictCursor) as cursor:
                 cursor.execute(sql, params)
                 if cursor.description:
                     result = cursor.fetchall() if many else cursor.fetchone()
@@ -53,7 +55,7 @@ class DataBase:
     def commit(self, sql, params=None):
         conn = self.get_conn()
         try:
-            with conn.cursor() as cursor:
+            with conn.cursor(cursor_factory=RealDictCursor) as cursor:
                 cursor.execute(sql, params)
                 result = cursor.fetchone() if cursor.description else None
                 conn.commit()

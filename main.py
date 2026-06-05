@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
 from api.router import api_router
-from routers import auth_router
 
 app = FastAPI(
     title="Banco de Alimentos",
