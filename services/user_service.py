@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from repository.user_repository import UserRepository
-from schemas.user import UserCreate, UserUpdate
+from schemas.user_schemas import UserCreate, UserUpdate
 
 
 class UserService:

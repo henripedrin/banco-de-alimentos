@@ -1,5 +1,5 @@
 from core.db import DataBase
-from schemas.user import User, UserUpdate, UserCreate
+from schemas.user_schemas import User, UserUpdate, UserCreate
 from queries import user_queries
 
 class UserRepository:
