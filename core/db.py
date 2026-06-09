@@ -81,3 +81,17 @@ class DataBase:
             raise
         finally:
             self.put_conn(conn)
+
+    def commit_many(self, sql, parameters):
+        conn = self.get_conn()
+        try:
+            with conn.cursor() as cursor:
+                cursor.executemany(sql, parameters)
+                conn.commit()
+                return cursor.rowcount
+        except Exception as e:
+            conn.rollback()
+            logger.error(f"Error executing COMMIT MANY: {e}")
+            raise
+        finally:
+            self.put_conn(conn)
