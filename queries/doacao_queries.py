@@ -1,5 +1,5 @@
 QUERY_GET_DOACOES_PENDENTES = """
-                                SELECT * FROM doacoes_solicitadas
+                                SELECT doador_id, data_solicitacao, status, observacao_vigilante FROM doacoes_solicitadas
                                 WHERE
                                 status = 'PENDENTE'
                               """

@@ -1,4 +1,3 @@
-from numpy.ma.extras import row_stack
 
 from core.db import DataBase
 from queries import alimento_queries

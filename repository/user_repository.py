@@ -10,7 +10,7 @@ class UserRepository:
             return None
         result = results[0]
         return User(id=result["id"],
-                    name=result["name"],
+                    nome=result["nome"],
                     username=result["username"],
                     senha=result["senha"],
                     categoria=result["categoria"],
@@ -18,19 +18,18 @@ class UserRepository:
 
     def get_credentials(self, username: str):
         db = DataBase()
-        print("======== LENDO O ARQUIVO NOVO ========")
         rows = db.execute(user_queries.QUERY_GET_USER_BY_USERNAME, (username,))
         if not rows:
             return None
         row = rows[0]
-        return [row[2], row[3]]
+        return [row['username'], row['senha']]
 
     def save(self, userCreate: UserCreate):
         db = DataBase()
-        result = db.commit(user_queries.QUERY_CREATE_USER, (userCreate.name, userCreate.username, userCreate.senha, userCreate.categoria))
+        result = db.commit(user_queries.QUERY_CREATE_USER, (userCreate.nome, userCreate.username, userCreate.senha, userCreate.categoria))
         if result:
             return User(id=result["id"],
-                        name=result["name"],
+                        nome=result["nome"],
                         username=result["username"],
                         senha=result["senha"],
                         categoria=result["categoria"],
@@ -39,9 +38,9 @@ class UserRepository:
 
     def put(self, userUpdate: UserUpdate, username: str):
         db = DataBase()
-        result = db.commit(user_queries.QUERY_UPDATE_USER, (userUpdate.name, username))
+        result = db.commit(user_queries.QUERY_UPDATE_USER, (userUpdate.nome, username))
         if result:
-            return UserUpdate(name=userUpdate.name)
+            return UserUpdate(nome=userUpdate.nome)
         return None
 
     def delete(self, username: str):
@@ -50,7 +49,7 @@ class UserRepository:
         if not result:
             return None
         return User(id=result["id"],
-                    name=result["name"],
+                    nome=result["nome"],
                     username=result["username"],
                     senha=result["senha"],
                     categoria=result["categoria"],

@@ -17,12 +17,12 @@ def get_user_by_username(username: str):
     return userService.get_user_by_username(username)
 
 
-@router.post("/", response_model=user_schemas.User)
+@router.post("/", response_model=user_schemas.UserCreate)
 def add_user(userCreate: UserCreate):
     userService = UserService()
     return userService.create_user(userCreate)
 
-@router.put("/", response_model=UserUpdate)
+@router.put("/")
 def update_user(userUpdate: UserUpdate, username):
     userService = UserService()
     return userService.update_user(userUpdate, username)

@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2 import pool
 from psycopg2.extras import RealDictCursor
-
+import contextlib
 from core import settings
 import logging
 
@@ -35,6 +35,20 @@ class DataBase:
 
     def put_conn(self, conn):
         DataBase._pool.putconn(conn)
+
+    @contextlib.contextmanager
+    def transaction(self):
+        conn = self.get_conn()
+        try:
+            with conn.cursor(cursor_factory=RealDictCursor) as cursor:
+                yield cursor
+                conn.commit()
+        except Exception as e:
+            conn.rollback()
+            logger.error(f"Error in transaction, rolling back: {e}")
+            raise
+        finally:
+            self.put_conn(conn)
 
     def execute(self, sql, params=None, many=True):
         conn = self.get_conn()

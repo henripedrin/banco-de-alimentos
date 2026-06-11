@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS cestas_basicas;
 DROP TABLE IF EXISTS alimentos_cesta;
 
 
-
 CREATE TABLE usuarios(
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -96,4 +95,56 @@ INSERT INTO alimentos(nome, categoria_id, quantidade, unidade_medida, data_venci
 INSERT INTO alimentos_avariados(alimento_id, quantidade, descricao) VALUES
 (1, 3, 'PACOTE ABERTO'),
 (2, 3, 'TÁ COM MUITO AÇUCAR'),
-(3, 5, 'PACOTE COM QUANTIDADE ABAIXO DO PESO')
+(3, 5, 'PACOTE COM QUANTIDADE ABAIXO DO PESO');
+
+INSERT INTO doacoes_solicitadas (doador_id, data_solicitacao, status, observacao_vigilante) VALUES
+(6, '2026-05-27', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
+(3, '2026-06-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(12, '2026-05-30', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
+(7, '2026-06-08', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(4, '2026-05-03', 'REJEITADO', 'Data de validade vencida no lote de laticínios.'),
+(3, '2026-05-30', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.'),
+(11, '2026-06-06', 'CONCLUIDO', 'Distribuição agendada para amanhã.'),
+(15, '2026-05-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(5, '2026-06-05', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.'),
+(13, '2026-05-24', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
+(13, '2026-06-05', 'CONCLUIDO', 'Distribuição agendada para amanhã.'),
+(15, '2026-05-16', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(1, '2026-05-23', 'PENDENTE', 'Aguardando chegada do caminhão.'),
+(1, '2026-06-05', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
+(5, '2026-05-16', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(7, '2026-05-20', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(6, '2026-05-25', 'REJEITADO', 'Produtos com embalagem violada.'),
+(15, '2026-06-08', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
+(13, '2026-05-17', 'PENDENTE', NULL),
+(15, '2026-05-20', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(1, '2026-06-02', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
+(9, '2026-05-11', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(6, '2026-06-09', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(10, '2026-05-22', 'PENDENTE', NULL),
+(13, '2026-05-01', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(5, '2026-05-03', 'PENDENTE', NULL),
+(6, '2026-05-09', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
+(15, '2026-05-02', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
+(2, '2026-05-27', 'PENDENTE', NULL),
+(11, '2026-05-13', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(6, '2026-05-10', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(8, '2026-05-29', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
+(13, '2026-05-11', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
+(8, '2026-05-26', 'PENDENTE', NULL),
+(3, '2026-05-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(3, '2026-05-17', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
+(12, '2026-05-02', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(4, '2026-05-12', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
+(13, '2026-06-10', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
+(3, '2026-05-18', 'PENDENTE', NULL),
+(9, '2026-05-05', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
+(13, '2026-05-01', 'PENDENTE', 'Aguardando chegada do caminhão.'),
+(13, '2026-05-18', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
+(15, '2026-05-06', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
+(1, '2026-05-20', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
+(5, '2026-05-02', 'APROVADO', 'Alimentos secos em perfeito estado.'),
+(2, '2026-06-07', 'PENDENTE', 'Aguardando chegada do caminhão.'),
+(6, '2026-05-29', 'PENDENTE', 'Aguardando chegada do caminhão.'),
+(2, '2026-05-29', 'REJEITADO', 'Data de validade vencida no lote de laticínios.'),
+(10, '2026-06-02', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.');

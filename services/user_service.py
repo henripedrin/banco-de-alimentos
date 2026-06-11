@@ -30,7 +30,7 @@ class UserService:
             userRepository = UserRepository()
             if userRepository.get_by_username(userCreate.username):
                 raise FileExistsError
-            if userCreate.username.strip() == "" or userCreate.senha.strip() == "" or userCreate.categoria.strip() == "" or userCreate.name.strip() == "":
+            if userCreate.username.strip() == "" or userCreate.senha.strip() == "" or userCreate.categoria.strip() == "" or userCreate.nome.strip() == "":
                 raise ValueError
             return userRepository.save(userCreate)
         except ValueError:
@@ -38,18 +38,28 @@ class UserService:
         except FileExistsError:
             raise HTTPException(status_code=409, detail="Usuário já existe")
 
-    def update_user(self, userUpdate: UserUpdate, username):
+    def update_user(self, userUpdate: UserUpdate, username: str):
         try:
             userRepository = UserRepository()
+            print(username.strip())
+            print(userUpdate.nome.strip())
             if userRepository.get_by_username(username) is None:
                 raise FileNotFoundError
-            if userUpdate.name.strip() == "" or username.strip() == "":
+            if userUpdate.nome.strip() == "" or username.strip() == "":
                 raise ValueError
-            return userRepository.put(userUpdate, username)
-        except ValueError:
-            raise HTTPException(status_code=400, detail="Campos vazios não são permitidos")
+            if userRepository.get_by_username(username).nome == userUpdate.nome:
+                raise FileExistsError
+            userRepository.put(userUpdate, username)
+            return {"mensagem": "Usuário atualizado com sucesso!"}
+        except ValueError as e:
+            import traceback
+            print("====== TRACEBACK DO ERRO 400 ======")
+            traceback.print_exc()
+            print("====================================")
         except FileNotFoundError:
             raise HTTPException(status_code=404, detail="Usuário não encontrado")
+        except FileExistsError:
+            raise HTTPException(status_code=409, detail="O usuário já possui esse nome")
 
     def delete_user(self, username):
         try:
