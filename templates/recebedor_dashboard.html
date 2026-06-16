@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Recebedor | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="#"><i class="bi bi-basket2-fill"></i> Solicitar Cestas</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h2 mb-4">Minha Área - Recebedor</h1>
+
+    <!-- Cards de Indicadores -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Solicitações Realizadas</h5>
+                    <p class="card-text" id="solicitacoes-realizadas">12</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator" style="border-left-color: var(--verde-claro);">
+                <div class="card-body">
+                    <h5 class="card-title">Solicitações Aprovadas</h5>
+                    <p class="card-text" id="solicitacoes-aprovadas">10</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
+                <div class="card-body">
+                    <h5 class="card-title">Solicitações Pendentes</h5>
+                    <p class="card-text" id="solicitacoes-pendentes">1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="row g-4">
+        <div class="col-lg-12">
+            <div class="table-responsive-custom">
+                <h3 class="h5 mb-3">Histórico de Solicitações</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID da Solicitação</th>
+                            <th>Data</th>
+                            <th>Quantidade de Cestas</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados viriam da API -->
+                        <tr>
+                            <td>#S012</td>
+                            <td>15/05/2024</td>
+                            <td>5</td>
+                            <td><span class="badge bg-success">Entregue</span></td>
+                        </tr>
+                        <tr>
+                            <td>#S011</td>
+                            <td>01/05/2024</td>
+                            <td>5</td>
+                            <td><span class="badge bg-success">Entregue</span></td>
+                        </tr>
+                         <tr>
+                            <td>#S013</td>
+                            <td>28/05/2024</td>
+                            <td>10</td>
+                            <td><span class="badge bg-warning text-dark">Em análise</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

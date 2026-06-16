@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Administrador | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link active" href="/dashboard/administrador"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="/admin/usuarios"><i class="bi bi-people-fill"></i> Manter Usuários</a>
+    <a class="nav-link" href="#"><i class="bi bi-file-earmark-bar-graph"></i> Gerar Relatórios</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h2 mb-4">Dashboard do Administrador</h1>
+
+    <!-- Cards de Indicadores -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Usuários</h5>
+                    <p class="card-text" id="total-users">...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Doações</h5>
+                    <p class="card-text" id="total-batches">...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Organizações Beneficiadas</h5>
+                    <p class="card-text" id="total-orgs">...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Cestas Entregues</h5>
+                    <p class="card-text" id="total-baskets">...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="table-responsive-custom">
+                <h3 class="h5 mb-3">Atividades Recentes</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ação</th>
+                            <th>Detalhe</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas serão inseridas dinamicamente pelo JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="p-4 bg-white rounded-3 shadow-sm">
+                <h3 class="h5 mb-3">Movimentações (Últimos 7 dias)</h3>
+                <!-- Aqui entraria um gráfico (ex: Chart.js) -->
+                <canvas id="movimentacoesChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script específico do dashboard -->
+    <script src="/static/js/admin_dashboard.js"></script>
+    <script>
+        // O gráfico será populado com dados da API em uma próxima etapa
+        // Por enquanto, o JS do dashboard não mexe no gráfico
+        const ctx = document.getElementById('movimentacoesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['D-6', 'D-5', 'D-4', 'D-3', 'D-2', 'Ontem', 'Hoje'],
+                datasets: [{
+                    label: 'Entradas (kg)',
+                    data: [0, 0, 0, 0, 0, 0, 0], // Dados virão da API
+                    borderColor: 'var(--verde-claro)',
+                    tension: 0.1
+                }, {
+                    label: 'Saídas (kg)',
+                    data: [0, 0, 0, 0, 0, 0, 0], // Dados virão da API
+                    borderColor: 'var(--laranja-suave)',
+                    tension: 0.1
+                }]
+            }
+        });
+    </script>
+{% endblock %}

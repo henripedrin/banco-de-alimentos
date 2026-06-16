@@ -75,76 +75,129 @@ CREATE TABLE alimentos_cesta (
     alimento_id INT NOT NULL,
     quantidade_retirada INT NOT NULL
 );
+-- =====================================
+-- USUÁRIOS
+-- =====================================
 
-INSERT INTO usuarios(nome, username, senha, categoria) VALUES
-('Pedro', 'pedro456', '123pedro', 'administrador'),
-('Marcos', 'marco0', '12345678', 'Doador'),
-('Paulo', 'paulo777', 'p4ul0', 'Nutricionista'),
-('Lar Santa Luzia', 'larsl', '12345678', 'Recebedor');
+INSERT INTO usuarios (nome, username, senha, categoria) VALUES
+                                                            ('Administrador Geral', 'admin', '123456', 'ADMINISTRADOR'),
+                                                            ('Maria Nutricionista', 'nutri01', '123456', 'NUTRICIONISTA'),
+                                                            ('Carlos Sanitário', 'sanitario01', '123456', 'AGENTE_SANITARIO'),
+                                                            ('Pedro Logística', 'logistica01', '123456', 'OPERADOR_LOGISTICO'),
+                                                            ('Lar Esperança', 'recebedor01', '123456', 'RECEBEDOR'),
+                                                            ('Casa do Bem', 'recebedor02', '123456', 'RECEBEDOR'),
+                                                            ('João Silva', 'doador01', '123456', 'DOADOR'),
+                                                            ('Mercado Central', 'doador02', '123456', 'DOADOR'),
+                                                            ('Supermercado Econômico', 'doador03', '123456', 'DOADOR');
 
-INSERT INTO categorias(nome, refrigerado) VALUES
-('Congelados', TRUE),
-('Bebidas', TRUE),
-('Temperos', FALSE);
+-- =====================================
+-- CATEGORIAS
+-- =====================================
 
-INSERT INTO alimentos(nome, categoria_id, quantidade, unidade_medida, data_vencimento) VALUES
-('Bandeja de coxa', 1, 7, 'UN', '2026-06-10'),
-('Suco', 2, 10, 'L', '2026-06-15'),
-('Sal', 3, 30, 'Kg', '2026-10-20');
+INSERT INTO categorias (nome, refrigerado) VALUES
+                                               ('Grãos', FALSE),
+                                               ('Massas', FALSE),
+                                               ('Enlatados', FALSE),
+                                               ('Laticínios', TRUE),
+                                               ('Carnes', TRUE),
+                                               ('Hortifruti', TRUE),
+                                               ('Bebidas', TRUE),
+                                               ('Padaria', FALSE);
 
-INSERT INTO alimentos_avariados(alimento_id, quantidade, descricao) VALUES
-(1, 3, 'PACOTE ABERTO'),
-(2, 3, 'TÁ COM MUITO AÇUCAR'),
-(3, 5, 'PACOTE COM QUANTIDADE ABAIXO DO PESO');
+-- =====================================
+-- ALIMENTOS
+-- =====================================
 
-INSERT INTO doacoes_solicitadas (doador_id, data_solicitacao, status, observacao_vigilante) VALUES
-(6, '2026-05-27', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
-(3, '2026-06-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(12, '2026-05-30', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
-(7, '2026-06-08', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(4, '2026-05-03', 'REJEITADO', 'Data de validade vencida no lote de laticínios.'),
-(3, '2026-05-30', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.'),
-(11, '2026-06-06', 'CONCLUIDO', 'Distribuição agendada para amanhã.'),
-(15, '2026-05-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(5, '2026-06-05', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.'),
-(13, '2026-05-24', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
-(13, '2026-06-05', 'CONCLUIDO', 'Distribuição agendada para amanhã.'),
-(15, '2026-05-16', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(1, '2026-05-23', 'PENDENTE', 'Aguardando chegada do caminhão.'),
-(1, '2026-06-05', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
-(5, '2026-05-16', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(7, '2026-05-20', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(6, '2026-05-25', 'REJEITADO', 'Produtos com embalagem violada.'),
-(15, '2026-06-08', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
-(13, '2026-05-17', 'PENDENTE', NULL),
-(15, '2026-05-20', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(1, '2026-06-02', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
-(9, '2026-05-11', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(6, '2026-06-09', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(10, '2026-05-22', 'PENDENTE', NULL),
-(13, '2026-05-01', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(5, '2026-05-03', 'PENDENTE', NULL),
-(6, '2026-05-09', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
-(15, '2026-05-02', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
-(2, '2026-05-27', 'PENDENTE', NULL),
-(11, '2026-05-13', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(6, '2026-05-10', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(8, '2026-05-29', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
-(13, '2026-05-11', 'CONCLUIDO', 'Armazenado na câmara fria 2.'),
-(8, '2026-05-26', 'PENDENTE', NULL),
-(3, '2026-05-04', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(3, '2026-05-17', 'APROVADO', 'Validade checada: tudo acima de 3 meses.'),
-(12, '2026-05-02', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(4, '2026-05-12', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
-(13, '2026-06-10', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
-(3, '2026-05-18', 'PENDENTE', NULL),
-(9, '2026-05-05', 'CONCLUIDO', 'Entregue e registrado no estoque central.'),
-(13, '2026-05-01', 'PENDENTE', 'Aguardando chegada do caminhão.'),
-(13, '2026-05-18', 'APROVADO', 'Lote de vegetais limpo e higienizado.'),
-(15, '2026-05-06', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
-(1, '2026-05-20', 'PENDENTE', 'Inspecionar integridade das embalagens na entrega.'),
-(5, '2026-05-02', 'APROVADO', 'Alimentos secos em perfeito estado.'),
-(2, '2026-06-07', 'PENDENTE', 'Aguardando chegada do caminhão.'),
-(6, '2026-05-29', 'PENDENTE', 'Aguardando chegada do caminhão.'),
-(2, '2026-05-29', 'REJEITADO', 'Data de validade vencida no lote de laticínios.'),
-(10, '2026-06-02', 'REJEITADO', 'Sinais de umidade excessiva nos sacos de grãos.');
+INSERT INTO alimentos
+(nome, categoria_id, quantidade, unidade_medida, data_vencimento)
+VALUES
+    ('Arroz', 1, 500, 'kg', '2027-01-15'),
+    ('Feijão Carioca', 1, 350, 'kg', '2026-12-10'),
+    ('Macarrão Espaguete', 2, 400, 'pct', '2027-03-20'),
+    ('Leite Integral', 4, 250, 'L', '2026-07-15'),
+    ('Queijo Mussarela', 4, 80, 'kg', '2026-07-01'),
+    ('Frango Congelado', 5, 150, 'kg', '2026-08-10'),
+    ('Carne Bovina', 5, 100, 'kg', '2026-08-05'),
+    ('Batata', 6, 300, 'kg', '2026-06-25'),
+    ('Cenoura', 6, 200, 'kg', '2026-06-28'),
+    ('Suco de Uva', 7, 180, 'L', '2027-02-12'),
+    ('Pão Integral', 8, 120, 'pct', '2026-06-15');
+
+-- =====================================
+-- ALIMENTOS AVARIADOS
+-- =====================================
+
+INSERT INTO alimentos_avariados
+(alimento_id, quantidade, descricao)
+VALUES
+    (4, 10, 'Embalagens estouradas'),
+    (8, 15, 'Batatas deterioradas'),
+    (11, 5, 'Pacotes com mofo');
+
+-- =====================================
+-- SOLICITAÇÕES DE DOAÇÃO
+-- =====================================
+
+INSERT INTO doacoes_solicitadas
+(doador_id, status, observacao_vigilante)
+VALUES
+    (7, 'APROVADA', 'Alimentos em boas condições'),
+    (8, 'PENDENTE', NULL),
+    (9, 'REJEITADA', 'Produtos vencidos encontrados');
+
+-- =====================================
+-- ITENS DAS SOLICITAÇÕES
+-- =====================================
+
+INSERT INTO itens_solicitacao
+(solicitacao_id, nome, quantidade, unidade_medida, data_vencimento, categoria_id)
+VALUES
+    (1, 'Arroz', 100, 'kg', '2027-01-15', 1),
+    (1, 'Feijão Carioca', 80, 'kg', '2026-12-10', 1),
+
+    (2, 'Macarrão Espaguete', 150, 'pct', '2027-03-20', 2),
+    (2, 'Leite Integral', 100, 'L', '2026-07-15', 4),
+
+    (3, 'Carne Bovina', 50, 'kg', '2025-01-01', 5);
+
+-- =====================================
+-- CESTAS BÁSICAS
+-- =====================================
+
+INSERT INTO cestas_basicas
+(nutricionista_id, recebedor_id)
+VALUES
+    (2, 5),
+    (2, 6);
+
+-- =====================================
+-- ALIMENTOS DAS CESTAS
+-- =====================================
+
+INSERT INTO alimentos_cesta
+(cesta_id, alimento_id, quantidade_retirada)
+VALUES
+-- Cesta 1
+(1, 1, 10),
+(1, 2, 10),
+(1, 3, 8),
+(1, 4, 5),
+
+-- Cesta 2
+(2, 1, 12),
+(2, 2, 12),
+(2, 3, 10),
+(2, 10, 6);
+
+-- =====================================
+-- AJUSTE DOS SEQUENCES
+-- =====================================
+
+SELECT setval('usuarios_id_seq', (SELECT MAX(id) FROM usuarios));
+SELECT setval('categorias_id_seq', (SELECT MAX(id) FROM categorias));
+SELECT setval('alimentos_id_seq', (SELECT MAX(id) FROM alimentos));
+SELECT setval('alimentos_avariados_id_seq', (SELECT MAX(id) FROM alimentos_avariados));
+SELECT setval('doacoes_solicitadas_id_seq', (SELECT MAX(id) FROM doacoes_solicitadas));
+SELECT setval('itens_solicitacao_id_seq', (SELECT MAX(id) FROM itens_solicitacao));
+SELECT setval('cestas_basicas_id_seq', (SELECT MAX(id) FROM cestas_basicas));
+SELECT setval('alimentos_cesta_id_seq', (SELECT MAX(id) FROM alimentos_cesta));

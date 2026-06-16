@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Manter Usuários | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/administrador"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link active" href="/admin/usuarios"><i class="bi bi-people-fill"></i> Manter Usuários</a>
+    <a class="nav-link" href="#"><i class="bi bi-file-earmark-bar-graph"></i> Gerar Relatórios</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Manter Usuários</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" onclick="openCreateModal()">
+            <i class="bi bi-plus-lg"></i> Novo Usuário
+        </button>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Barra de Pesquisa e Filtro -->
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Pesquisar por nome ou username...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select id="filterCategoria" class="form-select">
+                        <option value="">Todas as Categorias</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                        <option value="NUTRICIONISTA">Nutricionista</option>
+                        <option value="AGENTE_SANITARIO">Agente Sanitário</option>
+                        <option value="OPERADOR_LOGISTICO">Operador Logístico</option>
+                        <option value="RECEBEDOR">Recebedor</option>
+                        <option value="DOADOR">Doador</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela de Usuários -->
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="usersTable">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <!-- Indicador de Carregamento -->
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+        <!-- Paginação -->
+        <nav aria-label="Navegação da tabela de usuários">
+            <ul class="pagination justify-content-end mt-3" id="pagination">
+                <!-- Paginação preenchida via JS -->
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Modal Principal (Criar/Editar/Visualizar) -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel">Novo Usuário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome Completo <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nome" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="senha" class="form-label" id="senhaLabel">Senha <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="senha">
+                        <div id="senhaHelp" class="form-text d-none">Deixe em branco para manter a senha atual.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categoria <span class="text-danger">*</span></label>
+                        <select class="form-select" id="categoria" required>
+                            <option value="">Selecione...</option>
+                            <option value="ADMINISTRADOR">Administrador</option>
+                            <option value="NUTRICIONISTA">Nutricionista</option>
+                            <option value="AGENTE_SANITARIO">Agente Sanitário</option>
+                            <option value="OPERADOR_LOGISTICO">Operador Logístico</option>
+                            <option value="RECEBEDOR">Recebedor</option>
+                            <option value="DOADOR">Doador</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3 form-check" id="statusContainer" style="display: none;">
+                        <input type="checkbox" class="form-check-input" id="ativo" checked>
+                        <label class="form-check-label" for="ativo">Usuário Ativo</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCancelModal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnSaveUser" onclick="saveUser()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir o usuário <strong id="deleteUserName"></strong>? Esta ação não pode ser desfeita.
+                <input type="hidden" id="deleteUserId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin_usuarios.js"></script>
+{% endblock %}

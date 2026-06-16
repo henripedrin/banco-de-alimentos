@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Nutricionista | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="#"><i class="bi bi-box-seam"></i> Montar Cesta Básica</a>
+    <a class="nav-link" href="#"><i class="bi bi-calendar-x"></i> Monitorar Validade</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h2 mb-4">Dashboard da Nutricionista</h1>
+
+    <!-- Cards de Indicadores -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
+                <div class="card-body">
+                    <h5 class="card-title">Lotes Próximos ao Vencimento</h5>
+                    <p class="card-text" id="lotes-vencendo">12</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Cestas Montadas (Mês)</h5>
+                    <p class="card-text" id="cestas-montadas">180</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Organizações Atendidas</h5>
+                    <p class="card-text" id="orgs-atendidas">25</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="row g-4">
+        <div class="col-lg-12">
+            <div class="table-responsive-custom">
+                <h3 class="h5 mb-3">Alertas de Validade (Vencem em até 7 dias)</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Lote</th>
+                            <th>Alimento</th>
+                            <th>Quantidade</th>
+                            <th>Data de Validade</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados viriam da API -->
+                        <tr>
+                            <td>#115</td>
+                            <td>Leite em Pó</td>
+                            <td>50 un.</td>
+                            <td>Em 3 dias</td>
+                            <td><a href="#" class="btn btn-sm btn-primary">Usar na Cesta</a></td>
+                        </tr>
+                        <tr>
+                            <td>#118</td>
+                            <td>Macarrão</td>
+                            <td>120 kg</td>
+                            <td>Em 5 dias</td>
+                            <td><a href="#" class="btn btn-sm btn-primary">Usar na Cesta</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

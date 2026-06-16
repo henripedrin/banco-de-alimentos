@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Doador | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="#"><i class="bi bi-box-arrow-in-up"></i> Doar Lote</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h2 mb-4">Área do Doador</h1>
+
+    <!-- Cards de Indicadores -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Doações</h5>
+                    <p class="card-text" id="total-doacoes">28</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator">
+                <div class="card-body">
+                    <h5 class="card-title">Quilogramas Doados</h5>
+                    <p class="card-text" id="kg-doados">1,540 kg</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
+                <div class="card-body">
+                    <h5 class="card-title">Lotes Aguardando Avaliação</h5>
+                    <p class="card-text" id="lotes-pendentes">3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="row g-4">
+        <div class="col-lg-12">
+            <div class="table-responsive-custom">
+                <h3 class="h5 mb-3">Histórico de Doações</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Lote ID</th>
+                            <th>Data da Doação</th>
+                            <th>Itens</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados viriam da API -->
+                        <tr>
+                            <td>#125</td>
+                            <td>Hoje, 08:15</td>
+                            <td>Arroz, Feijão, Óleo</td>
+                            <td><span class="badge bg-warning text-dark">Aguardando Inspeção</span></td>
+                        </tr>
+                        <tr>
+                            <td>#119</td>
+                            <td>12/05/2024</td>
+                            <td>Leite, Açúcar</td>
+                            <td><span class="badge bg-success">Aprovado e Distribuído</span></td>
+                        </tr>
+                         <tr>
+                            <td>#110</td>
+                            <td>25/04/2024</td>
+                            <td>Farinha de Trigo</td>
+                            <td><span class="badge bg-danger">Rejeitado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

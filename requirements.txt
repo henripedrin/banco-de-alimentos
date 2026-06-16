@@ -3,3 +3,8 @@ uvicorn
 psycopg2-binary
 pydantic
 python-dotenv
+passlib[bcrypt]
+bcrypt==3.2.2
+python-jose[cryptography]
+jinja2
+python-multipart

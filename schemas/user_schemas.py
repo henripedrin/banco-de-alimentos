@@ -1,20 +1,28 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Optional
 
-class UserCreate(BaseModel):
+# Schema base com campos comuns
+class UserBase(BaseModel):
     nome: str
     username: str
-    senha: str
     categoria: str
 
+# Schema para criação de usuário (exige senha)
+class UserCreate(UserBase):
+    senha: str
 
-class User(BaseModel):
+# Schema para atualização (senha é opcional)
+class UserUpdate(BaseModel):
+    nome: Optional[str] = None
+    username: Optional[str] = None
+    categoria: Optional[str] = None
+    senha: Optional[str] = None
+    ativo: Optional[bool] = None
+
+# Schema para resposta da API (nunca inclui a senha)
+class User(UserBase):
     id: int
-    nome: str
-    username: str
-    senha: str
-    categoria: str
     ativo: bool
 
-
-class UserUpdate(BaseModel):
-    nome: str
+    class Config:
+        orm_mode = True
