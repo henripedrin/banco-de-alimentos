@@ -4,7 +4,7 @@ from queries import dashboard_queries
 class DashboardRepository:
     def get_admin_metrics(self):
         db = DataBase()
-
+        
         users_by_category = db.execute(dashboard_queries.QUERY_COUNT_USERS_BY_CATEGORY, many=True)
         total_alimentos = db.execute(dashboard_queries.QUERY_COUNT_ALIMENTOS, many=False)
         total_doacoes = db.execute(dashboard_queries.QUERY_COUNT_DOACOES, many=False)
@@ -17,4 +17,15 @@ class DashboardRepository:
             "total_doacoes": total_doacoes['total'] if total_doacoes else 0,
             "total_cestas": total_cestas['total'] if total_cestas else 0,
             "recent_activities": recent_activities if recent_activities else []
+        }
+
+    def get_logistica_metrics(self):
+        db = DataBase()
+        
+        entregas_by_status = db.execute(dashboard_queries.QUERY_COUNT_ENTREGAS_BY_STATUS, many=True)
+        ultimas_entregas = db.execute(dashboard_queries.QUERY_GET_ULTIMAS_ENTREGAS, many=True)
+
+        return {
+            "entregas_by_status": entregas_by_status if entregas_by_status else [],
+            "ultimas_entregas": ultimas_entregas if ultimas_entregas else []
         }

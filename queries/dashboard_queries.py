@@ -18,3 +18,23 @@ QUERY_RECENT_ACTIVITIES = """
     ORDER BY data DESC
     LIMIT 5;
 """
+
+# --- Logistics Dashboard ---
+QUERY_COUNT_ENTREGAS_BY_STATUS = """
+    SELECT status, COUNT(*) as total 
+    FROM entregas 
+    GROUP BY status;
+"""
+QUERY_GET_ULTIMAS_ENTREGAS = """
+    SELECT 
+        e.id,
+        e.cesta_id,
+        r.nome as recebedor_nome,
+        e.data_entrega,
+        e.status
+    FROM entregas e
+    JOIN usuarios r ON e.recebedor_id = r.id
+    WHERE e.status = 'ENTREGUE'
+    ORDER BY e.data_entrega DESC
+    LIMIT 10;
+"""

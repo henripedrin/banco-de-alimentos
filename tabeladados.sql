@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS usuarios CASCADE;
 DROP TABLE IF EXISTS cestas_basicas CASCADE;
 DROP TABLE IF EXISTS alimentos_cesta CASCADE;
 DROP TABLE IF EXISTS entregas CASCADE;
+DROP TABLE IF EXISTS relatorios CASCADE;
 
 
 CREATE TABLE usuarios(
@@ -95,6 +96,14 @@ CREATE TABLE entregas (
     CONSTRAINT fk_entrega_cesta FOREIGN KEY (cesta_id) REFERENCES cestas_basicas(id),
     CONSTRAINT fk_entrega_recebedor FOREIGN KEY (recebedor_id) REFERENCES usuarios(id),
     CONSTRAINT fk_entrega_operador FOREIGN KEY (operador_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE relatorios (
+    id SERIAL PRIMARY KEY,
+    file_name VARCHAR(255) NOT NULL,
+    reference_month VARCHAR(7) NOT NULL, -- Formato YYYY-MM
+    generation_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    file_path VARCHAR(255) NOT NULL
 );
 
 -- =====================================
@@ -215,6 +224,14 @@ INSERT INTO entregas (cesta_id, recebedor_id, status) VALUES
 (3, 13, 'PENDENTE');
 
 -- =====================================
+-- RELATÓRIOS (EXEMPLO)
+-- =====================================
+INSERT INTO relatorios (file_name, reference_month, file_path) VALUES
+('relatorio_mensal_2024_05.pdf', '2024-05', '/relatorios/relatorio_mensal_2024_05.pdf'),
+('relatorio_mensal_2024_04.pdf', '2024-04', '/relatorios/relatorio_mensal_2024_04.pdf'),
+('relatorio_mensal_2024_03.pdf', '2024-03', '/relatorios/relatorio_mensal_2024_03.pdf');
+
+-- =====================================
 -- AJUSTE DOS SEQUENCES
 -- =====================================
 SELECT setval('usuarios_id_seq', (SELECT MAX(id) FROM usuarios));
@@ -226,3 +243,4 @@ SELECT setval('itens_solicitacao_id_seq', (SELECT MAX(id) FROM itens_solicitacao
 SELECT setval('cestas_basicas_id_seq', (SELECT MAX(id) FROM cestas_basicas));
 SELECT setval('alimentos_cesta_id_seq', (SELECT MAX(id) FROM alimentos_cesta));
 SELECT setval('entregas_id_seq', (SELECT MAX(id) FROM entregas));
+SELECT setval('relatorios_id_seq', (SELECT MAX(id) FROM relatorios), false);

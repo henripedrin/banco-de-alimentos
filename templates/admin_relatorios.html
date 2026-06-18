@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Relatórios Mensais | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/administrador"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="/admin/usuarios"><i class="bi bi-people-fill"></i> Manter Usuários</a>
+    <a class="nav-link active" href="/admin/relatorios"><i class="bi bi-file-earmark-bar-graph"></i> Gerar Relatórios</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Relatórios</h1>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Seção de Geração Manual -->
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Gerar Novo Relatório Sob Demanda</h5>
+        </div>
+        <div class="card-body">
+            <form id="reportForm">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label for="startDate" class="form-label">Data de Início</label>
+                        <input type="date" class="form-control" id="startDate" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="endDate" class="form-label">Data Final</label>
+                        <input type="date" class="form-control" id="endDate" required>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" onclick="generateManualReport()">
+                            <i class="bi bi-gear-fill me-1"></i> Gerar Relatório
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="setPresetDate('last_month')">Mês Passado</button>
+                        <button type="button" class="btn btn-secondary" onclick="setPresetDate('this_month')">Este Mês</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabela de Histórico de Relatórios -->
+    <h3 class="h4 mt-5">Histórico de Relatórios Gerados</h3>
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="reportsTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Mês/Período de Referência</th>
+                    <th>Data de Geração</th>
+                    <th>Nome do Arquivo</th>
+                    <th class="text-end">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/admin_relatorios.js"></script>
+{% endblock %}

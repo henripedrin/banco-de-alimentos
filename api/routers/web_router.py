@@ -23,6 +23,10 @@ async def admin_dashboard(request: Request):
 async def admin_usuarios_page(request: Request):
     return templates.TemplateResponse(request=request, name="admin_usuarios.html", context={"request": request})
 
+@router.get("/admin/relatorios", response_class=HTMLResponse)
+async def admin_relatorios_page(request: Request):
+    return templates.TemplateResponse(request=request, name="admin_relatorios.html", context={"request": request})
+
 @router.get("/dashboard/nutricionista", response_class=HTMLResponse)
 async def nutricionista_dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="nutricionista_dashboard.html", context={"request": request})
