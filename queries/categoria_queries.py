@@ -1,0 +1,1 @@
+QUERY_GET_ALL_CATEGORIAS = "SELECT id, nome FROM categorias ORDER BY nome ASC;"

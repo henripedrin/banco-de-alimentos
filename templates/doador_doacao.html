@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Minhas Doações | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/doador"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link active" href="/doador/doar"><i class="bi bi-box-arrow-in-up"></i> Doar Lote</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Minhas Doações</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#donationItemModal">
+            <i class="bi bi-plus-lg"></i> Iniciar Cadastro de Lote
+        </button>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Histórico de Doações -->
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="donationsTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Cód.</th>
+                    <th>Data</th>
+                    <th>Itens</th>
+                    <th>Status</th>
+                    <th>Observação (Agente Sanitário)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Cadastro de Item -->
+<div class="modal fade" id="donationItemModal" tabindex="-1" aria-labelledby="donationItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donationItemModalLabel">Cadastrar Item para Doação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="donationItemForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="alimentoNome" class="form-label">Nome do Alimento <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="alimentoNome" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="alimentoCategoria" class="form-label">Categoria <span class="text-danger">*</span></label>
+                            <select class="form-select" id="alimentoCategoria" required>
+                                <option value="">Carregando...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="alimentoQtd" class="form-label">Quantidade Total <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="alimentoQtd" required min="1">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="alimentoUnidade" class="form-label">Unidade de Medida <span class="text-danger">*</span></label>
+                            <select class="form-select" id="alimentoUnidade" required>
+                                <option value="kg">Quilogramas (kg)</option>
+                                <option value="L">Litros (L)</option>
+                                <option value="un">Unidades (un)</option>
+                                <option value="pct">Pacotes (pct)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alimentoVencimento" class="form-label">Data de Vencimento <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="alimentoVencimento" required>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="possuiAvaria">
+                        <label class="form-check-label" for="possuiAvaria">
+                            Este item possui alguma avaria (embalagem amassada, etc)?
+                        </label>
+                    </div>
+                    <div id="avariaFields" class="d-none p-3 bg-light rounded">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="alimentoQtdAvariada" class="form-label">Quantidade Avariada <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="alimentoQtdAvariada" min="1">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="alimentoDescAvaria" class="form-label">Descrição da Avaria <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="alimentoDescAvaria">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div>
+                    <button type="button" class="btn btn-success" onclick="finishDonation()">
+                        <i class="bi bi-check-lg"></i> Finalizar Doação (<span id="itemCount">0</span>)
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="addItemToList()">Adicionar Item à Lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Revisão da Doação -->
+<div class="modal fade" id="reviewDonationModal" tabindex="-1" aria-labelledby="reviewDonationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewDonationModalLabel">Revisar e Confirmar Doação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Confira os itens abaixo antes de confirmar sua doação.</p>
+                <div class="table-responsive">
+                    <table class="table" id="reviewTable">
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Quantidade</th>
+                                <th>Vencimento</th>
+                                <th>Avaria?</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Itens para revisão preenchidos via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger me-auto" onclick="cancelDonation()">Cancelar Doação</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e Adicionar Mais Itens</button>
+                <button type="button" class="btn btn-success" onclick="confirmDonation()">Confirmar e Enviar Doação</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/doador_doacao.js"></script>
+{% endblock %}

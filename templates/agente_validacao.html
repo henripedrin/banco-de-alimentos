@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Validar Lotes | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/agente_sanitario"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link active" href="/agente/validar"><i class="bi bi-check2-square"></i> Validar Lote</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Validação de Lotes Pendentes</h1>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Tabela de Doações Pendentes -->
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="pendingDonationsTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Cód. Solicitação</th>
+                    <th>Data</th>
+                    <th>Nome do Doador</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Detalhes da Doação -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Detalhes da Doação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-3"><strong>Cód. Solicitação:</strong> <span id="detailId"></span></div>
+                    <div class="col-md-4"><strong>Doador:</strong> <span id="detailDoador"></span></div>
+                    <div class="col-md-5"><strong>Data:</strong> <span id="detailData"></span></div>
+                </div>
+                <h6 class="mt-4">Itens do Lote</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered" id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Categoria</th>
+                                <th>Quantidade</th>
+                                <th>Vencimento</th>
+                                <th>Avaria?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Itens preenchidos via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="openRejectModal()">Rejeitar Lote</button>
+                <button type="button" class="btn btn-success" onclick="approveDonation()">Aprovar Lote</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Rejeitar Doação -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectModalLabel">Rejeitar Doação</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja rejeitar a doação <strong id="rejectDonationId"></strong>? Esta ação não pode ser desfeita.</p>
+                <form id="rejectForm">
+                    <div class="mb-3">
+                        <label for="rejectionReason" class="form-label">Motivo da Rejeição <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="rejectionReason" rows="3" required minlength="10"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmRejection()">Confirmar Rejeição</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/agente_validacao.js"></script>
+{% endblock %}

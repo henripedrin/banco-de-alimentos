@@ -3,8 +3,8 @@
 {% block title %}Dashboard Agente Sanitário | NutriRede{% endblock %}
 
 {% block sidebar %}
-    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
-    <a class="nav-link" href="#"><i class="bi bi-check2-square"></i> Validar Lote</a>
+    <a class="nav-link active" href="/dashboard/agente_sanitario"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="/agente/validar"><i class="bi bi-check2-square"></i> Validar Lote</a>
     <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
     <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
     <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
@@ -20,7 +20,7 @@
             <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
                 <div class="card-body">
                     <h5 class="card-title">Lotes Aguardando Validação</h5>
-                    <p class="card-text" id="lotes-pendentes">8</p>
+                    <p class="card-text" id="lotes-pendentes">...</p>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="card card-indicator" style="border-left-color: var(--verde-claro);">
                 <div class="card-body">
                     <h5 class="card-title">Lotes Aprovados (Hoje)</h5>
-                    <p class="card-text" id="lotes-aprovados">15</p>
+                    <p class="card-text" id="lotes-aprovados">...</p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="card card-indicator" style="border-left-color: #EF5350;">
                 <div class="card-body">
                     <h5 class="card-title">Lotes Rejeitados (Hoje)</h5>
-                    <p class="card-text" id="lotes-rejeitados">2</p>
+                    <p class="card-text" id="lotes-rejeitados">...</p>
                 </div>
             </div>
         </div>
@@ -57,23 +57,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dados viriam da API -->
-                        <tr>
-                            <td>#125</td>
-                            <td>Supermercado Bom Preço</td>
-                            <td>Hoje, 08:15</td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Iniciar Inspeção</a></td>
-                        </tr>
-                        <tr>
-                            <td>#124</td>
-                            <td>Indústria Alimentícia S.A.</td>
-                            <td>Ontem, 16:40</td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Iniciar Inspeção</a></td>
-                        </tr>
+                        <tr><td colspan="4" class="text-center">Veja a fila completa na tela "Validar Lote".</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Adicionar script para carregar os cards do dashboard do agente -->
 {% endblock %}
