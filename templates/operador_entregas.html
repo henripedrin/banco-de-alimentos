@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Entregas | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/operador_logistico"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="#"><i class="bi bi-card-checklist"></i> Checklist de Transporte</a>
+    <a class="nav-link active" href="/operador/entregas"><i class="bi bi-truck"></i> Confirmar Entrega</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Entregas Pendentes</h1>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Tabela de Entregas Pendentes -->
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="deliveriesTable">
+            <thead class="table-light">
+                <tr>
+                    <th>ID Entrega</th>
+                    <th>ID Cesta</th>
+                    <th>Recebedor</th>
+                    <th>Data Criação</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Detalhes da Entrega -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Detalhes da Entrega</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-4"><strong>ID Entrega:</strong> <span id="detailId"></span></div>
+                    <div class="col-md-4"><strong>ID Cesta:</strong> <span id="detailCestaId"></span></div>
+                    <div class="col-md-4"><strong>Status:</strong> <span id="detailStatus"></span></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6"><strong>Recebedor:</strong> <span id="detailRecebedor"></span></div>
+                    <div class="col-md-6"><strong>Operador:</strong> <span id="detailOperador"></span></div>
+                </div>
+                 <div class="row mb-3">
+                    <div class="col-md-6"><strong>Data Criação:</strong> <span id="detailDataCriacao"></span></div>
+                    <div class="col-md-6"><strong>Data Entrega:</strong> <span id="detailDataEntrega"></span></div>
+                </div>
+                <h6 class="mt-4">Itens da Cesta</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <!-- Itens preenchidos via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Confirmar Entrega -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Entrega</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Confirmar que a entrega para <strong id="confirmRecebedorNome"></strong> foi concluída com sucesso?</p>
+                <input type="hidden" id="confirmDeliveryId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="submitConfirmation()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/operador_entregas.js"></script>
+{% endblock %}

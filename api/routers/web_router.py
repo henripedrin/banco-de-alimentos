@@ -27,6 +27,14 @@ async def admin_usuarios_page(request: Request):
 async def nutricionista_dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="nutricionista_dashboard.html", context={"request": request})
 
+@router.get("/nutricionista/validade", response_class=HTMLResponse)
+async def nutricionista_validade_page(request: Request):
+    return templates.TemplateResponse(request=request, name="nutricionista_validade.html", context={"request": request})
+
+@router.get("/nutricionista/montar-cesta", response_class=HTMLResponse)
+async def nutricionista_montar_cesta_page(request: Request):
+    return templates.TemplateResponse(request=request, name="nutricionista_montar_cesta.html", context={"request": request})
+
 @router.get("/dashboard/agente_sanitario", response_class=HTMLResponse)
 async def agente_sanitario_dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="agente_sanitario_dashboard.html", context={"request": request})
@@ -38,6 +46,10 @@ async def agente_validacao_page(request: Request):
 @router.get("/dashboard/operador_logistico", response_class=HTMLResponse)
 async def operador_logistico_dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="operador_logistico_dashboard.html", context={"request": request})
+
+@router.get("/operador/entregas", response_class=HTMLResponse)
+async def operador_entregas_page(request: Request):
+    return templates.TemplateResponse(request=request, name="operador_entregas.html", context={"request": request})
 
 @router.get("/dashboard/recebedor", response_class=HTMLResponse)
 async def recebedor_dashboard(request: Request):

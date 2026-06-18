@@ -3,9 +3,9 @@
 {% block title %}Dashboard Nutricionista | NutriRede{% endblock %}
 
 {% block sidebar %}
-    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
-    <a class="nav-link" href="#"><i class="bi bi-box-seam"></i> Montar Cesta Básica</a>
-    <a class="nav-link" href="#"><i class="bi bi-calendar-x"></i> Monitorar Validade</a>
+    <a class="nav-link active" href="/dashboard/nutricionista"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="/nutricionista/montar-cesta"><i class="bi bi-box-seam"></i> Montar Cesta Básica</a>
+    <a class="nav-link" href="/nutricionista/validade"><i class="bi bi-calendar-x"></i> Monitorar Validade</a>
     <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
     <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
     <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
@@ -21,7 +21,7 @@
             <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
                 <div class="card-body">
                     <h5 class="card-title">Lotes Próximos ao Vencimento</h5>
-                    <p class="card-text" id="lotes-vencendo">12</p>
+                    <p class="card-text" id="lotes-vencendo">...</p>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="card card-indicator">
                 <div class="card-body">
                     <h5 class="card-title">Cestas Montadas (Mês)</h5>
-                    <p class="card-text" id="cestas-montadas">180</p>
+                    <p class="card-text" id="cestas-montadas">...</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card card-indicator">
                 <div class="card-body">
                     <h5 class="card-title">Organizações Atendidas</h5>
-                    <p class="card-text" id="orgs-atendidas">25</p>
+                    <p class="card-text" id="orgs-atendidas">...</p>
                 </div>
             </div>
         </div>
@@ -59,21 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dados viriam da API -->
-                        <tr>
-                            <td>#115</td>
-                            <td>Leite em Pó</td>
-                            <td>50 un.</td>
-                            <td>Em 3 dias</td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Usar na Cesta</a></td>
-                        </tr>
-                        <tr>
-                            <td>#118</td>
-                            <td>Macarrão</td>
-                            <td>120 kg</td>
-                            <td>Em 5 dias</td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Usar na Cesta</a></td>
-                        </tr>
+                        <tr><td colspan="5" class="text-center">Veja a lista completa na tela "Monitorar Validade".</td></tr>
                     </tbody>
                 </table>
             </div>

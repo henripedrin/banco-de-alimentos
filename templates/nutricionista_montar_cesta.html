@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Montar Cesta Básica | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/nutricionista"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link active" href="/nutricionista/montar-cesta"><i class="bi bi-box-seam"></i> Montar Cesta Básica</a>
+    <a class="nav-link" href="/nutricionista/validade"><i class="bi bi-calendar-x"></i> Monitorar Validade</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Montar Cesta Básica</h1>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <div class="row g-4">
+        <!-- Coluna da Tabela de Alimentos -->
+        <div class="col-lg-8">
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-7">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por nome do alimento...">
+                        </div>
+                        <div class="col-md-5">
+                            <select id="filterCategoria" class="form-select">
+                                <option value="">Todas as Categorias</option>
+                                <!-- Categorias carregadas via JS -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive-custom">
+                <table class="table table-hover align-middle" id="alimentosTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Alimento</th>
+                            <th>Categoria</th>
+                            <th>Disponível</th>
+                            <th>Vencimento</th>
+                            <th style="width: 150px;">Adicionar</th>
+                            <th style="width: 100px;">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Conteúdo preenchido via JS -->
+                    </tbody>
+                </table>
+                <div id="tableLoading" class="text-center py-4 d-none">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coluna da Cesta Atual -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm sticky-top" style="top: 80px;">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="bi bi-basket-fill me-2"></i>Cesta Atual</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="recebedorSelect" class="form-label">Organização Recebedora <span class="text-danger">*</span></label>
+                        <select id="recebedorSelect" class="form-select" required>
+                            <option value="">Selecione...</option>
+                            <!-- Recebedores carregados via JS -->
+                        </select>
+                    </div>
+                    <hr>
+                    <ul class="list-group list-group-flush" id="basketList">
+                        <!-- Itens da cesta preenchidos via JS -->
+                        <li class="list-group-item text-center text-muted" id="emptyBasketMsg">A cesta está vazia.</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-white text-end">
+                    <button class="btn btn-success" id="btnConfirmBasket" onclick="openReviewModal()" disabled>
+                        Confirmar Cesta (<span id="basketItemCount">0</span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Revisão da Cesta -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Revisar e Finalizar Cesta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Confira os itens selecionados para a organização <strong id="reviewRecebedorNome"></strong>.</p>
+                <div class="table-responsive">
+                    <table class="table" id="reviewTable">
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Quantidade</th>
+                                <th>Vencimento</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Itens para revisão preenchidos via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar e Editar</button>
+                <button type="button" class="btn btn-success" onclick="submitBasket()">Confirmar e Salvar Cesta</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/nutricionista_montar_cesta.js"></script>
+{% endblock %}

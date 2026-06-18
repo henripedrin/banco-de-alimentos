@@ -3,9 +3,9 @@
 {% block title %}Dashboard Operador Logístico | NutriRede{% endblock %}
 
 {% block sidebar %}
-    <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link active" href="/dashboard/operador_logistico"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a class="nav-link" href="#"><i class="bi bi-card-checklist"></i> Checklist de Transporte</a>
-    <a class="nav-link" href="#"><i class="bi bi-truck"></i> Confirmar Entrega</a>
+    <a class="nav-link" href="/operador/entregas"><i class="bi bi-truck"></i> Confirmar Entrega</a>
     <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
     <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
     <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
@@ -21,7 +21,7 @@
             <div class="card card-indicator" style="border-left-color: var(--laranja-suave);">
                 <div class="card-body">
                     <h5 class="card-title">Entregas Pendentes</h5>
-                    <p class="card-text" id="entregas-pendentes">4</p>
+                    <p class="card-text" id="entregas-pendentes">...</p>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="card card-indicator">
                 <div class="card-body">
                     <h5 class="card-title">Entregas Concluídas (Hoje)</h5>
-                    <p class="card-text" id="entregas-concluidas">9</p>
+                    <p class="card-text" id="entregas-concluidas">...</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card card-indicator">
                 <div class="card-body">
                     <h5 class="card-title">Transportes em Andamento</h5>
-                    <p class="card-text" id="transportes-andamento">2</p>
+                    <p class="card-text" id="transportes-andamento">...</p>
                 </div>
             </div>
         </div>
@@ -59,21 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dados viriam da API -->
-                        <tr>
-                            <td>Cesta #501</td>
-                            <td>ONG Criança Feliz</td>
-                            <td>Hoje, 14:00</td>
-                            <td><span class="badge bg-info">A caminho</span></td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>Cesta #502</td>
-                            <td>Abrigo Boa Esperança</td>
-                            <td>Hoje, 16:30</td>
-                            <td><span class="badge bg-secondary">Aguardando transporte</span></td>
-                            <td><a href="#" class="btn btn-sm btn-primary">Iniciar Transporte</a></td>
-                        </tr>
+                        <tr><td colspan="5" class="text-center">Veja a lista completa na tela "Confirmar Entrega".</td></tr>
                     </tbody>
                 </table>
             </div>

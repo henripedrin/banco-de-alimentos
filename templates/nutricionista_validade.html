@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Monitorar Validade | NutriRede{% endblock %}
+
+{% block sidebar %}
+    <a class="nav-link" href="/dashboard/nutricionista"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a class="nav-link" href="#"><i class="bi bi-box-seam"></i> Montar Cesta Básica</a>
+    <a class="nav-link active" href="/nutricionista/validade"><i class="bi bi-calendar-x"></i> Monitorar Validade</a>
+    <a class="nav-link" href="#"><i class="bi bi-person-badge"></i> Perfil</a>
+    <a class="nav-link" href="#"><i class="bi bi-graph-up"></i> Estatísticas</a>
+    <a class="nav-link" href="#" id="logoutButton"><i class="bi bi-box-arrow-right"></i> Logout</a>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Monitoramento de Validade</h1>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Legenda -->
+    <div class="d-flex justify-content-end gap-3 mb-3">
+        <span class="badge bg-danger">Vencido</span>
+        <span class="badge bg-warning text-dark">Vence em até 2 dias</span>
+        <span class="badge bg-light text-dark border">Dentro da validade</span>
+    </div>
+
+    <!-- Tabela de Alimentos -->
+    <div class="table-responsive-custom">
+        <table class="table table-hover align-middle" id="validadeTable">
+            <thead class="table-light">
+                <tr>
+                    <th>Nome do Alimento</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Data de Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Conteúdo preenchido via JS -->
+            </tbody>
+        </table>
+        <div id="tableLoading" class="text-center py-4 d-none">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/nutricionista_validade.js"></script>
+{% endblock %}
